@@ -3,7 +3,7 @@ gridSize = tileCount = 20
 player = { x: 10, y: 10 }
 
 food = { x: 15, y: 15 }
-velocity = { x: 0, y: 0 }
+snakeVelocity = { x: 0, y: 0 }
 
 trail = []
 minTail = 5
@@ -18,31 +18,31 @@ function keyPush(evt) {
 	// console.log(evt.keyCode)
 	switch (evt.keyCode) {
 		case 32:
-			velocity.x = 0
-			velocity.y = 0
+			snakeVelocity.x = 0
+			snakeVelocity.y = 0
 			break
 		case 37: // sx
-			if (velocity.x != 1) {
-				velocity.x = -1
-				velocity.y = 0
+			if (snakeVelocity.x != 1) {
+				snakeVelocity.x = -1
+				snakeVelocity.y = 0
 			}
 			break
 		case 39: //dx
-			if (velocity.x != -1) {
-				velocity.x = 1
-				velocity.y = 0
+			if (snakeVelocity.x != -1) {
+				snakeVelocity.x = 1
+				snakeVelocity.y = 0
 			}
 			break
 		case 38: //up
-			if (velocity.y != 1) {
-				velocity.x = 0
-				velocity.y = -1
+			if (snakeVelocity.y != 1) {
+				snakeVelocity.x = 0
+				snakeVelocity.y = -1
 				break
 			}
 		case 40: //down
-			if (velocity.y != -1) {
-				velocity.x = 0
-				velocity.y = 1
+			if (snakeVelocity.y != -1) {
+				snakeVelocity.x = 0
+				snakeVelocity.y = 1
 				break
 			}
 	}
@@ -56,8 +56,8 @@ window.onload = function () {
 }
 
 function game() {
-	player.x += velocity.x
-	player.y += velocity.y
+	player.x += snakeVelocity.x
+	player.y += snakeVelocity.y
 
 	if (player.x < 0) {
 		player.x = tileCount - 1
@@ -78,7 +78,7 @@ function game() {
 		draw()
 	}
 
-	if (velocity.x != 0 || velocity.y != 0) {
+	if (snakeVelocity.x != 0 || snakeVelocity.y != 0) {
 		trail.push({ x: player.x, y: player.y })
 		draw()
 

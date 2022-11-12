@@ -1,63 +1,67 @@
-gridSize = tileCount = 20
+let gridSize = (tileCount = 20)
 
-pause = false
+let pause = false
 
-snake = { x: 10, y: 10 }
+let snake = { x: 10, y: 10 }
 
-food = { x: 15, y: 15 }
-lastVelocity = { x: 0, y: 0 }
-velocity = { x: 0, y: 0 }
+let food = { x: 15, y: 15 }
+let lastVelocity = { x: 0, y: 0 }
+let snakeVelocity = { x: 0, y: 0 }
 
-trail = []
-minTail = 5
-tailLen = minTail
+let trail = []
+let minTail = 5
+let tailLen = minTail
 
-minGameSpeed = 7000
-maxGameSpeed = 500
-gameSpeed = minGameSpeed
-deltaSpeed = -500 // must be negative
+let minGameSpeed = 7000
+let maxGameSpeed = 500
+let gameSpeed = minGameSpeed
+let deltaSpeed = -500 // must be negative
 
 function keyPush(evt) {
 	// console.log(evt.keyCode)
 	switch (evt.keyCode) {
 		case 32:
 			if (!pause) {
-				lastVelocity.x = velocity.x
-				lastVelocity.y = velocity.y
-				velocity.x = 0
-				velocity.y = 0
+				lastVelocity.x = snakeVelocity.x
+				lastVelocity.y = snakeVelocity.y
+				snakeVelocity.x = 0
+				snakeVelocity.y = 0
 				pause = true
 			} else if (pause) {
 				pause = false
-				velocity.x = lastVelocity.x
-				velocity.y = lastVelocity.y
+				snakeVelocity.x = lastVelocity.x
+				snakeVelocity.y = lastVelocity.y
 			}
 			break
 		case 37: // sx
-			if (velocity.x != 1 && !pause) {
-				velocity.x = -1
-				velocity.y = 0
+			if (snakeVelocity.x != 1 && !pause) {
+				snakeVelocity.x = -1
+				snakeVelocity.y = 0
 			}
 			break
 		case 39: //dx
-			if (velocity.x != -1 && !pause) {
-				velocity.x = 1
-				velocity.y = 0
+			if (snakeVelocity.x != -1 && !pause) {
+				snakeVelocity.x = 1
+				snakeVelocity.y = 0
 			}
 			break
 		case 38: //up
-			if (velocity.y != 1 && !pause) {
-				velocity.x = 0
-				velocity.y = -1
+			if (snakeVelocity.y != 1 && !pause) {
+				snakeVelocity.x = 0
+				snakeVelocity.y = -1
 				break
 			}
 		case 40: //down
-			if (velocity.y != -1 && !pause) {
-				velocity.x = 0
-				velocity.y = 1
+			if (snakeVelocity.y != -1 && !pause) {
+				snakeVelocity.x = 0
+				snakeVelocity.y = 1
 				break
 			}
 	}
+}
+
+function mode(direction, pawn) {
+	
 }
 
 window.onload = function () {
@@ -68,8 +72,8 @@ window.onload = function () {
 }
 
 function game() {
-	snake.x += velocity.x
-	snake.y += velocity.y
+	snake.x += snakeVelocity.x
+	snake.y += snakeVelocity.y
 
 	if (snake.x < 0) {
 		snake.x = tileCount - 1
@@ -85,7 +89,7 @@ function game() {
 		snake.y = 0
 	}
 
-	if (velocity.x != 0 || velocity.y != 0 || trail.length == 0) {
+	if (snakeVelocity.x != 0 || snakeVelocity.y != 0 || trail.length == 0) {
 		trail.push({ x: snake.x, y: snake.y })
 	}
 
